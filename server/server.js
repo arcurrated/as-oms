@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const db = require('./app/models')
+require('dotenv').config()
 
 const commonDataDefault = new db.commons({
 	currentOrderNumber: 1,
