@@ -1,4 +1,5 @@
 # as-oms-vue
+API_DOMAIN=
 
 ## Project setup
 ```
