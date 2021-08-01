@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px !important;
+  background: #2e3231 !important;
+}
+.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle {
+  min-height: 60px !important;
+}
+
+.main-bg {
+  background: #128b60 !important;
+}
+
+.main-color {
+  color: #128b60 !important;
+}
+
+.main-btn {
+  background: #128b60 !important;
+  border-radius: 5px;
+}
+
+.main-btn:hover {
+  background: #116c4c !important;
+}
+
+.main-input{
+
+    border-radius: 5px !important;
+    background: #f0fff8 !important;
+    border: 1px solid #979797 !important;
+
+}
+
+.main-input:focus {
+  border-color: #00ac76 !important;
+}
+.main-input[type="date"] {
+
+    line-height: 28px;
+}
+
+.main-navbar {
+  background: #2e3231 !important;
+}
+.main-navbar .uk-logo, .main-navbar a {
+  color: #fff !important;
+}
+
+.error-feedback {
+    width: 100%;
+    padding:  5px 0px;
+    color: #f0506e;
+    display: block;
+}
+
+.form-bg {
+  background: #d3e2db;
+}
+
+.param-value {
+
+    margin: 0px 0px 5px 0px;
+    font-size: 1.3em;
+    color: #116446;
+
+}
+
+.param-label {
+    margin-bottom: -3px;
+    margin-top: 0px;
+}
+
+.margin-small-top{
+  margin-top: 10px !important;
+}
+
+.custom-card {
+
+    background: #d5e2db;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #00c486;
+
+}
+
+.custom-card-header {
+
+    padding: 10px;
+    color: #138c61;
+    background: #f0fff8;
+    font-size: 1.4em;
+    margin: 0px;
+
+}
+
+.custom-card-body {
+
+    padding: 0px 10px 10px 10px;
+    color: #547465;
+
+}
+
+
+.edit-btn {
+    color: #188b62;
+    border: 1px solid #188b62;
+    width: 20px;
+    display: block;
+    border-radius: 5px;
+}
+.edit-status-btn {
+  color: #188b62;
+  background: #f0fff8;
+  width: 30px;
+  display: block;
+  border-radius: 5px;
+  padding: 5px;
+}
+.done-btn {
+    color: #188b62;
+    border: 1px solid #188b62;
+    width: 50px;
+    display: block;
+    border-radius: 5px;
+    padding-left: 13px;
+}
+.delete-btn {
+    color: #fe4f70;
+    border: 1px solid #fe4f70;
+    width: 20px;
+    display: block;
+    border-radius: 5px;
+}
