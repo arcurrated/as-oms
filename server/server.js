@@ -57,6 +57,12 @@ app.use((req, res) => {
 })
 
 const PORT = process.env.PORT || 8080
-app.listen(PORT, ()=>{
-	console.log('server running', PORT)
-})
+if(process.env.RUN_ON_LOCALHOST){
+	app.listen(PORT, 'localhost', () => {
+		console.log('server running on localhost (prod ver.)', PORT)
+	})
+} else {
+	app.listen(PORT, () => {
+		console.log('server running', PORT)
+	})
+}
