@@ -65,7 +65,7 @@
 		</div>
 
 		<div class="uk-margin-bottom">
-			<EditCommons />
+			<EditCommons v-if="currentUser.role=='admin'"/>
 		</div>
 	</div>
 </template>
