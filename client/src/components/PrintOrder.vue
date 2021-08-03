@@ -3,7 +3,7 @@
 		<h1 style="color:red;" v-if="errorMessage">{{ errorMessage }}</h1>
 		<div v-if="order">
 			<iframe id="printArea" name="printArea" style="display: none;"></iframe>
-			<div width="100%" style="max-height:300px; overflow: scroll;">
+			<div width="100%" style="max-height:300px; overflow: scroll; border-radius: 5px;">
 				<div id="print" style="width: 210mm; background: #fff; color: black; font-size: 12pt; font-family: sans-serif;">
 					<p style="text-align: right;">{{ commons.organizationTitle }}<br>
 					{{ commons.organizationAddress }}</p>
@@ -39,7 +39,7 @@
 					<h5 style="margin-bottom: 0px;">Причина обращения:</h5>
 					<p style="margin-top:0px;">{{ order.reason }}</p>
 					<h4 style="margin-bottom: 5px;">Перечень выполненных работ:</h4>
-					<table border="1px" style="font-size: 10pt;" cellpadding="4px" bordercolor="#000" width="100%" cellSpacing="0">
+					<table border="1px" style="font-size: 10pt; border-collapse: collapse;" cellpadding="4px" bordercolor="#000" width="100%" cellSpacing="0">
 						<tr style="font-weight: bold; text-align: center;">
 							<td>№</td>
 							<td>Наименование работ, услуг</td>
@@ -62,7 +62,7 @@
 						</tr>
 					</table>
 					<h4 style="margin-bottom: 5px;">Используемые материалы (запчасти):</h4>
-					<table border="1px" style="font-size: 10pt;" cellpadding="4px" bordercolor="#000" width="100%" cellSpacing="0">
+					<table border="1px" style="font-size: 10pt; border-collapse: collapse;" cellpadding="4px" bordercolor="#000" width="100%" cellSpacing="0">
 						<tr style="font-weight: bold; text-align: center;">
 							<td>№</td>
 							<td>Наименование товара (зап.части)</td>
