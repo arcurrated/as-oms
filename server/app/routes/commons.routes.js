@@ -4,9 +4,8 @@ module.exports = app =>{
 	const middlewares = require('../middlewares')
 
 	router.use(middlewares.auth.verifyToken)
-	router.use(middlewares.auth.isAdmin)
-	router.get('/', commons.findOne)
-	router.put('/', commons.update)
+	router.get('/', [middlewares.auth.isModer,], commons.findOne)
+	router.put('/', [middlewares.auth.isAdmin,], commons.update)
 
 	app.use('/api/commons', router)
 }
