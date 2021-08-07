@@ -16,14 +16,18 @@
 						<p class="param-label">E-mail</p>
 						<p class="param-value">{{ client.email }}</p>
 						<p class="param-label">Дата рождения</p>
-						<p class="param-value">{{ client.bdate }}</p>
+						<p class="param-value">{{ moment(client.bdate).format('L') }}</p>
 						<p class="param-label">Пол</p>
-						<p class="param-value">{{ client.sex }}</p>
-						<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(client)}">Использовать</button>
+						<p class="param-value">
+							<span v-if="client.sex == 1">Муж</span>
+							<span v-else-if="client.sex == 2">Жен</span>
+							<span v-else>Не определен</span>
+						</p>
+						<a class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(client)}">Использовать</a>
 					</div>
 				</li>
 			</ul>
-			<button class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</button>
+			<a class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</a>
 		</div>
 	</div>
 </template>
@@ -55,6 +59,7 @@ export default {
 		},
 	},
 	methods: {
+		moment: window.moment,
 		search(pattern) {
 			console.log(pattern)
 			let filter = {

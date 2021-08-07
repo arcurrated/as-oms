@@ -8,6 +8,15 @@ const createOrder = () => import('./components/CreateOrder.vue')
 const editOrder = () => import('./components/EditOrder.vue')
 const printOrder = () => import('./components/PrintOrder.vue')
 
+const vehicles = () => import('./components/vehicles/Vehicles.vue')
+const editVehicle = () => import('./components/vehicles/EditVehicle.vue')
+
+const clients = () => import('./components/clients/Clients.vue')
+const editClient = () => import('./components/clients/EditClient.vue')
+
+const payers = () => import('./components/payers/Payers.vue')
+const editPayer = () => import('./components/payers/EditPayer.vue')
+
 const routes = [
 	{
 		path: "/",
@@ -43,6 +52,42 @@ const routes = [
 		name: 'printorder',
 		component: printOrder,
 		meta: {title: "Печать заказ-наряда"}
+	},
+	{
+		path: '/vehicles',
+		name: 'vehicles',
+		component: vehicles,
+		meta: { title: "Пресеты автомобилей" }
+	},
+	{
+		path: '/editvehicle/:id',
+		name: 'editvehicle',
+		component: editVehicle,
+		meta: {title : "Редактирование пресета"}
+	},
+	{
+		path: '/clients',
+		name: 'clients',
+		component: clients,
+		meta: { title: "Пресеты клиентов" }
+	},
+	{
+		path: '/editclient/:id',
+		name: 'editclient',
+		component: editClient,
+		meta: {title : "Редактирование пресета"}
+	},
+	{
+		path: '/payers',
+		name: 'payers',
+		component: payers,
+		meta: { title: "Пресеты плательщиков" }
+	},
+	{
+		path: '/editpayer/:id',
+		name: 'editpayer',
+		component: editPayer,
+		meta: {title : "Редактирование пресета"}
 	},
 	{
 		path: "/login",

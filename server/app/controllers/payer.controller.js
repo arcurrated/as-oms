@@ -15,6 +15,7 @@ const buildQuery = filter => {
 	if(filter){
 		if(filter.title){ query['title'] = new RegExp(filter.title, 'i')}
 		if(filter.phoneNumber){ query['phoneNumber'] = new RegExp(filter.phoneNumber, 'i')}
+		if(filter.INN){ query['INN'] = new RegExp(filter.INN, 'i') }
 	}
 
 	return query

@@ -42,12 +42,12 @@
 						<p class="param-label">Орган, выдавший документ</p>
 						<p class="param-value">{{ vehicle.STSReleaseDepartment }}</p>
 						<p class="param-label">Когда выдан</p>
-						<p class="param-value">{{ vehicle.STSReleaseDate }}</p>
-						<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(vehicle)}">Использовать</button>
+						<p class="param-value">{{ moment(vehicle.STSReleaseDate).format('L') }}</p>
+						<a class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(vehicle)}">Использовать</a>
 					</div>
 				</li>
 			</ul>
-			<button class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</button>
+			<a class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</a>
 		</div>
 	</div>
 </template>
@@ -79,6 +79,7 @@ export default {
 		},
 	},
 	methods: {
+		moment: window.moment,
 		search(pattern) {
 			console.log(pattern)
 			let filter = {

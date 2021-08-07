@@ -17,6 +17,7 @@ const buildQuery = filter => {
 		if(filter.lastName){ query['lastName'] = new RegExp(filter.lastName, 'i')}
 		if(filter.middleName){ query['middleName'] = new RegExp(filter.middleName, 'i')}
 		if(filter.sex){ query['sex'] = filter.sex}
+		if(filter.bdate){ query['bdate'] = new Date(filter.bdate) }
 		if(filter.phoneNumber){ query['phoneNumber'] = new RegExp(filter.phoneNumber, 'i')}
 		if(filter.email){ query['email'] = new RegExp(filter.email, 'i')}
 	}

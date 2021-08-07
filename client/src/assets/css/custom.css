@@ -2,8 +2,17 @@
   box-sizing: border-box;
 }
 html {
-  font-size: 10px !important;
-  background: #2e3231 !important;
+    background: #2e3231 !important;
+}
+@media screen and (max-width: 350px){
+    html {
+        font-size: 10px !important;
+    }
+}
+@media screen and (min-width: 350px){
+    html {
+      font-size: 12px !important;
+    }
 }
 .uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle {
   min-height: 60px !important;
@@ -45,7 +54,7 @@ html {
 .main-navbar {
   background: #2e3231 !important;
 }
-.main-navbar .uk-logo, .main-navbar a {
+.main-navbar .uk-logo, .main-navbar > div > ul > li > a {
   color: #fff !important;
 }
 
@@ -133,4 +142,131 @@ html {
     width: 20px;
     display: block;
     border-radius: 5px;
+}
+
+.divider {
+    margin: 0px 0px 10px 0px;
+    border-color: #6fdf97;
+}
+
+.filter-btn {
+    cursor: pointer;
+    font-size: 1.2em;
+    background: #f8fffc;
+    border: none;
+    padding: 9px 10px;
+    border-radius: 5px;
+    color: #049665;
+    text-align: left;
+    transition: all .2s;
+}
+
+.filter-btn-icon, .filter-btn-label {
+    float: right;
+}
+
+.filter-btn-label {
+
+    background: #ff6160;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 5px;
+
+}
+.filter-label {
+    line-height: 24px;
+}
+.filter-label-container {
+    width: 90px;
+}
+.filter-block-header {
+    margin:  10px 0px 5px 0px;
+    color: #466055;
+    font-size: 1.5em;
+}
+#editFilterBlock {
+    width: 100%;
+    padding: 10px;
+    background: rgb(248, 255, 252) none repeat scroll 0% 0%;
+    border-radius: 0px 5px 5px;
+    color: rgb(68, 85, 78);
+    font-size:  1em;
+}
+#editFilterBlock .main-input, #editFilterBlock .uk-select {
+    height: 24px !important;
+    line-height: 24px !important;
+}
+
+.uk-nav-sub > li > a::before {
+    content: "";
+    margin-left: 20px;
+    width: 12px;
+    border-top: 1px solid #919191;
+
+}
+.uk-nav-sub > li > a:first-of-type {
+    padding-top:  0px;
+}
+.uk-nav-sub > li > a {
+    padding: 8px 0px;
+}
+
+.edit-param-label {
+    width: 95px;
+    overflow: hidden;
+}
+.edit-param-label p {
+    width: 150px;
+}
+.edit-param-block p {
+    width: 500px;
+    line-height: 20px;
+    height: 20px;
+    margin: 0px;
+}
+.edit-param-value {
+    overflow: hidden;
+    font-weight: 600;
+    padding: 0px 8px;
+    border-radius: 5px;
+    background-color: #f0fff8;
+    color: #2f7559;
+}
+.edit-param-value > p {
+    overflow: hidden;
+}
+.header {
+    margin: 0px;
+    color:  #537564;
+    font-weight: 600;
+}
+.input-header {
+    margin-top: 5px;
+    margin-bottom: 3px;
+    color: #e9fdf4;
+    font-size: 1.2em;
+}
+
+.preset-container {
+    padding: 10px;
+    border-radius: 7px;
+    background: #f0fff8;
+    color: #333;
+}
+.preset-container p {
+    font-size: 1.1em;
+    margin: 0px;
+}
+.preset-container .common-data {
+    font-size: 1.2em;
+    line-height: 24.5px;
+}
+.preset-container .key-number {
+    color: #fff;
+    background: #039566;
+    padding: 4px 5px;
+    border-radius: 3px;
+    text-align: right;
+
 }

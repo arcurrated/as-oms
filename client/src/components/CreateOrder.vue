@@ -278,6 +278,7 @@ export default {
 	},
 	methods: {
 		handleSubmit(order){
+			order.mileageDone = order.mileageInit
 			OrderService.create(order).then((resp) => {
 				window.UIkit.notification("Заказ-наряд успешно создан", {status: "success"})
 				this.$router.push({ name: 'editorder', params: {id: resp.data.id}})
@@ -386,12 +387,6 @@ export default {
 .search-btn > span {
 	position: relative;
 	bottom: 1px;
-}
-.input-header {
-	margin-top: 5px;
-	margin-bottom: 3px;
-	color: #e9fdf4;
-	font-size: 1.3em;
 }
 
 .search-icon {

@@ -166,6 +166,18 @@
 							</div>
 						</div>
 
+						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
+							<div>
+								<div class="edit-param-label"><p>Оконч. пробег</p></div>
+							</div>
+							<div class="uk-width-expand">
+								<div class="edit-param-value"><p>{{ order.mileageDone }}</p></div>
+							</div>
+							<div>
+								<a class="edit-btn" v-on:click="() => {editValue('mileageDone', order.mileageDone)}"><span uk-icon="icon: pencil"></span></a>
+							</div>
+						</div>
+
 
 
 						<h4 class="header uk-margin-small-top">Собственник</h4>
@@ -629,9 +641,35 @@
 							</div>
 							<div>
 								<a class="edit-status-btn" v-on:click="() => {editingStatus=true}" v-if="!editingStatus"><span uk-icon="icon: pencil;ratio: 1.1;"></span></a>						
-								<a class="edit-status-btn" v-on:click="() => {editingStatus=false; updateOrder();}" v-else><span uk-icon="icon: check;ratio: 1.1;"></span></a>
+								<a class="edit-status-btn" v-on:click="editOrderStatusDone" v-else><span uk-icon="icon: check;ratio: 1.1;"></span></a>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div v-if="order.status == 4">
+					<p class="input-header" style="color: rgb(161, 174, 169);">Рекомендации</p>
+					<div class="uk-grid-small edit-param-block" uk-grid v-if="editingRecomendations">
+						<div class="uk-width-expand">
+							<textarea class="uk-textarea main-input" v-model="order.recomendations" rows="4"></textarea>
+						</div>
+						<div>
+							<a class="done-btn" style="padding: 27px 5px;width: 30px;" v-on:click="() => {editingRecomendations = false; updateOrder();}"><span uk-icon="icon: check;"></span></a>
+						</div>
+					</div>
+					<div class="edit-param-value" v-else v-on:click="()=>{editingRecomendations=true;}">
+						<p style="line-height: 15px;padding: 5px 0px;height: 60px;width:100%;">{{ order.recomendations }}</p>
+					</div>
+					<p class="input-header" style="color: rgb(161, 174, 169); margin-top: 5px;">Финальный пробег</p>
+					<div class="uk-grid-small edit-param-block" uk-grid v-if="editingMileageDone">
+						<div class="uk-width-expand">
+							<input type="number" class="uk-input main-input" v-model="order.mileageDone">
+						</div>
+						<div>
+							<a class="done-btn" style="padding: 10px 5px;width: 30px;" v-on:click="() => {editingMileageDone = false; updateOrder();}"><span uk-icon="icon: check;"></span></a>
+						</div>
+					</div>
+					<div class="edit-param-value" v-else v-on:click="()=>{editingMileageDone=true;}">
+						<p style="line-height: 40px; height: 40px; margin: 0px;">{{ order.mileageDone }} км</p>
 					</div>
 				</div>
 				<router-link :to="{ name: 'printorder', params: {id: order.id}}" class="uk-button uk-button-primary main-btn uk-button-small uk-margin-small-top uk-width-1-1"><span uk-icon="icon: print; ratio: 0.8;"></span>&nbsp;&nbsp;Печать</router-link>
@@ -650,7 +688,7 @@ import OrderService from '../services/order.service'
 export default {
 	name: 'editOrder',
 	data() {
-		return { orderId: null, order: null, editingStatus: false,}
+		return { orderId: null, order: null, editingStatus: false, editingRecomendations: false, editingMileageDone: false,}
 	},
 	mounted() {
 		if(!this.$store.state.auth.status.loggedIn){
@@ -759,6 +797,13 @@ export default {
 			this.order.parts[index].editing = false;
 			this.updateOrder()
 		},
+		editOrderStatusDone(){
+			this.editingStatus = false
+			if(this.order.status == 4){
+				window.UIkit.notification("Не забудьте добавить рекомендации и указать финальный пробег!", {status: "warning"})
+			}
+			this.updateOrder()
+		},
 		printOrder(){
 			window.UIkit.notification("printing")
 		},
@@ -804,36 +849,6 @@ export default {
 	height: 30px;
 	padding: 0px 5px;
 }
-.header {
-	margin: 0px;
-	color:  #537564;
-	font-weight: 600;
-}
-.edit-param-label {
-	width: 95px;
-	overflow: hidden;
-}
-.edit-param-label p {
-	width: 150px;
-}
-.edit-param-block p {
-	width: 500px;
-    line-height: 20px;
-    height: 20px;
-    margin: 0px;
-}
-.edit-param-value {
-	overflow: hidden;
-	font-weight: 600;
-    padding: 0px 8px;
-    border-radius: 5px;
-    background-color: #f0fff8;
-    color: #2f7559;
-}
-.edit-param-value > p {
-	overflow: hidden;
-}
-
 .operation-index {
 
     font-size: 2em;

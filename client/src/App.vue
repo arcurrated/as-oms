@@ -8,6 +8,16 @@
         <ul class="uk-navbar-nav">
           <li v-if="currentUser"><router-link to="/createorder">Создать заказ-наряд</router-link></li>
           <li v-if="currentUser"><router-link to="/orders">Все заказ-наряды</router-link></li>
+          <li v-if="currentUser">
+            <a href="#">Пресеты автозаполнения</a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><router-link to="/vehicles">Автомобили</router-link></li>
+                <li><router-link to="/clients">Клиенты</router-link></li>
+                <li><router-link to="/payers">Плательщики</router-link></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
       <div class="uk-navbar-right">
@@ -35,6 +45,14 @@
         <li class="uk-nav-header">Меню</li>
         <li v-if="currentUser"><router-link to="/createorder"><span class="uk-margin-small-right" uk-icon="icon: plus-circle"></span> Создать заказ-наряд</router-link></li>
         <li v-if="currentUser"><router-link to="/orders"><span class="uk-margin-small-right" uk-icon="icon: database"></span> Заказ-наряды</router-link></li>
+        <li class="uk-parent" v-if="currentUser">
+          <a><span class="uk-margin-small-right" uk-icon="icon: bookmark"></span> Пресеты автозаполнения</a>
+          <ul class="uk-nav-sub">
+            <li><router-link to="/vehicles">&nbsp;&nbsp;Автомобили</router-link></li>
+            <li><router-link to="/clients">&nbsp;&nbsp;Клиенты</router-link></li>
+            <li><router-link to="/payers">&nbsp;&nbsp;Плательщики</router-link></li>
+          </ul>
+        </li>
         <li class="uk-nav-divider"></li>
         <li v-if="!currentUser"><router-link to="/login"> Войти</router-link></li>
         <li v-if="!currentUser"><router-link to="/register"> Регистрация</router-link></li>
@@ -65,3 +83,9 @@ export default {
 }
 
 </script>
+
+<style scoped>
+/* rewrite */
+
+/* end rewrite */
+</style>

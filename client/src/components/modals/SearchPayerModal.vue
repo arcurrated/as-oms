@@ -13,11 +13,11 @@
 						<p class="param-value">{{ payer.INN }}</p>
 						<p class="param-label">Адрес</p>
 						<p class="param-value">{{ payer.address }}</p>
-						<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(payer)}">Использовать</button>
+						<a class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-on:click="() => {select(payer)}">Использовать</a>
 					</div>
 				</li>
 			</ul>
-			<button class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</button>
+			<a class="uk-button uk-button-secondary uk-button-small uk-width-1-1" style="border-radius: 5px;" v-on:click="toggler.toggle()">Скрыть</a>
 		</div>
 	</div>
 </template>

@@ -14,6 +14,21 @@ class VehicleService {
 			headers: authHeader(),
 		})
 	}
+	getById(id){
+		return axios.get(`${API_URL}/${id}`, {
+			headers: authHeader(),
+		})
+	}
+	update(id, vehicle){
+		return axios.put(`${API_URL}/${id}`, vehicle, {
+			headers: authHeader(),
+		})
+	}
+	remove(id){
+		return axios.delete(`${API_URL}/${id}`, {
+			headers: authHeader(),
+		})
+	}
 }
 
 

@@ -32,7 +32,7 @@
 			<p class="uk-text-large uk-margin-remove header"><span uk-icon="icon: database; ratio: 0.7;"></span>&nbsp;Все заказ-наряды</p>
 			<div class="uk-margin-small-bottom uk-grid-collapse" uk-grid>
 				<div class="uk-width-1-2">
-					<button class="filter-btn uk-width-1-1" id="editFilterBtn" uk-toggle="target: #editFilterBlock; animation: uk-animation-slide-top-small;">Параметры 
+					<button class="filter-btn uk-width-1-1" id="editFilterBtn" uk-toggle="target: #editFilterBlock; animation: uk-animation-slide-top-small;">Фильтр 
 						<span class="filter-btn-icon" uk-icon="icon: settings; ratio:0.8;"></span>
 						<span class="filter-btn-label" v-if="filterFieldsCounter > 0">{{ filterFieldsCounter }}</span>
 					</button>
@@ -57,7 +57,7 @@
 									<input type="number" class="uk-input main-input" v-model="rawFilter.number">
 								</div>
 							</div>
-							<div class="uk-grid-small" uk-grid>
+							<div class="uk-grid-small margin-small-top" uk-grid>
 								<div class="filter-label-container"><p class="filter-label">Статус</p></div>
 								<div class="uk-width-expand">
 									<select class='uk-select uk-width-1-1' v-model="rawFilter.status">
@@ -256,7 +256,8 @@ export default {
 			filter: {},
 			rawFilter, 
 			errorMessage: '', 
-			page: 1, 
+			page: 1,
+			perPage: process.env.VUE_APP_DEFAULT_PER_PAGE || 5,
 			loading: false, 
 			displayMoreBtn: true,
 		}
@@ -294,7 +295,7 @@ export default {
 		moment: window.moment,
 		showMore(){
 			this.loading = true;
-			OrderService.getAllOrders(this.page, 5, this.sort.preset, this.filter).then(resp => {
+			OrderService.getAllOrders(this.page, this.perPage, this.sort.preset, this.filter).then(resp => {
 				this.orders = this.orders.concat(resp.data.orders)
 
 				if(resp.data.orders.length == 0){
@@ -504,40 +505,12 @@ export default {
 
 }
 
-.filter-btn {
-	cursor: pointer;
-    background: #f8fffc;
-    border: none;
-    padding: 9px 10px;
-    border-radius: 5px;
-    color: #049665;
-    text-align: left;
-    transition: all .2s;
-}
-
-.filter-btn-icon, .filter-btn-label {
-	float: right;
-}
-
-.filter-btn-label {
-
-    background: #ff6160;
-    color: white;
-    padding: 1px 5px;
-    border-radius: 3px;
-    margin-right: 5px;
-
-}
 .sort-label {
 
     text-align: right;
     margin: 0px;
     color: #6fdf97;
     display: block;
-}
-.divider {
-	margin: 0px 0px 10px 0px;
-	border-color: #6fdf97;
 }
 
 .order-container {
@@ -607,26 +580,7 @@ export default {
   border-radius: 3px;
   color: #fff;
 }
-.filter-label {
-	line-height: 30px;
-	font-size: 1.2em;
-}
-.filter-label-container {
-	width: 90px;
-}
-.filter-block-header {
-	margin:  10px 0px 5px 0px;
-	color: #466055;
-	font-size: 1.5em;
-}
-#editFilterBlock {
-    width: 100%;
-    padding: 10px;
-    background: rgb(248, 255, 252) none repeat scroll 0% 0%;
-    border-radius: 0px 5px 5px;
-    color: rgb(68, 85, 78);
 
-}
 /* rewrite */
 .uk-modal-body, .uk-modal-header, .uk-modal-footer {
 	padding: 10px 15px !important;

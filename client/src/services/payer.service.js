@@ -14,6 +14,21 @@ class PayerService {
 			headers: authHeader(),
 		})
 	}
+	getById(id){
+		return axios.get(`${API_URL}/${id}`, {
+			headers: authHeader(),
+		})
+	}
+	update(id, client){
+		return axios.put(`${API_URL}/${id}`, client, {
+			headers: authHeader(),
+		})
+	}
+	remove(id){
+		return axios.delete(`${API_URL}/${id}`, {
+			headers: authHeader(),
+		})
+	}
 }
 
 

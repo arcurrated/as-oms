@@ -25,7 +25,7 @@
 							<td style="text-align: right;">Год выпуска: </td>
 							<td style="font-weight: bold;">{{ order.vehicle.releaseYear }}</td>
 							<td style="text-align: right;">Пробег: </td>
-							<td style="font-weight: bold;">{{ order.mileageInit }} км</td>
+							<td style="font-weight: bold;">{{ order.mileageDone }} км</td>
 						</tr>
 						<tr>
 							<td style="text-align: right;">VIN: </td>
@@ -109,7 +109,8 @@
 					</div>
 				</div>
 			</div>
-			<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1 uk-margin-small-top uk-margin-bottom" v-on:click="printOrder">Печать</button>
+			<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1 uk-margin-small-top" v-on:click="printOrder">Печать</button>
+			<router-link :to="{ name:'editorder', params: {id: order.id}}" class="uk-button uk-width-1-1 uk-margin-bottom" style="background: none !important; color: #777;">Вернуться к редактированию</router-link>
 		</div>
 	</div>
 </template>
