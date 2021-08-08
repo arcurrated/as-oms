@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="uk-container">
-			<p class="uk-text-large uk-margin-remove header"><span uk-icon="icon: database; ratio: 0.7;"></span>&nbsp;Все заказ-наряды</p>
+			<p class="uk-text-large uk-margin-remove header"><span uk-icon="icon: database; ratio: 0.7;"></span>&nbsp;<span v-if="filterFieldsCounter==0">Все</span><span v-else>Найденные</span> заказ-наряды ({{ totalOrdersCount }})</p>
 			<div class="uk-margin-small-bottom uk-grid-collapse" uk-grid>
 				<div class="uk-width-1-2">
 					<button class="filter-btn uk-width-1-1" id="editFilterBtn" uk-toggle="target: #editFilterBlock; animation: uk-animation-slide-top-small;">Фильтр 
@@ -248,6 +248,7 @@ export default {
 		const rawFilter = {vehicle: {}, client: {}, payer: {}}
 		return { 
 			orders: [], 
+			totalOrdersCount: 0,
 			lastOpenedOrders: [],
 			filterFieldsCounter: 0,
 			sort: sortMap[0],
@@ -297,6 +298,7 @@ export default {
 			this.loading = true;
 			OrderService.getAllOrders(this.page, this.perPage, this.sort.preset, this.filter).then(resp => {
 				this.orders = this.orders.concat(resp.data.orders)
+				this.totalOrdersCount = resp.data.totalItems
 
 				if(resp.data.orders.length == 0){
 					if(this.page == 1){

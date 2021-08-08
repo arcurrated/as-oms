@@ -31,7 +31,7 @@
 						<ErrorMessage name="vehicle.VIN" class="error-feedback" />
 						<div class="uk-grid-small uk-margin-small-top uk-child-width-1-3" uk-grid>
 							<div>
-								<Field name="vehicle.releaseYear" class="uk-input main-input" placeholder="Год выпуска" />
+								<Field name="vehicle.releaseYear" class="uk-input main-input" type="tel" placeholder="Год выпуска" />
 								<ErrorMessage name="vehicle.releaseYear" class="error-feedback" />
 							</div>
 							<div>
@@ -45,7 +45,7 @@
 						</div>
 						<div class="uk-grid-small uk-margin-small-top uk-child-width-1-3" uk-grid>
 							<div>
-								<Field name="vehicle.engineVolume" class="uk-input main-input" placeholder="Объем (см3)" />
+								<Field name="vehicle.engineVolume" class="uk-input main-input" type="tel" placeholder="Объем (см3)" />
 								<ErrorMessage name="vehicle.engineVolume" class="error-feedback" />
 							</div>
 							<div>
@@ -53,7 +53,7 @@
 								<ErrorMessage name="vehicle.enginePower" class="error-feedback" />
 							</div>
 							<div>
-								<Field name="mileageInit" class="uk-input main-input" placeholder="Пробег" />
+								<Field name="mileageInit" type="tel" class="uk-input main-input" placeholder="Пробег" />
 								<ErrorMessage name="mileageInit" class="error-feedback" />
 							</div>
 						</div>
@@ -116,7 +116,7 @@
 							<div class="uk-width-expand">
 								<div class="uk-inline uk-width-1-1">
 									<span class="uk-form-icon" uk-icon="icon: receiver;"></span>
-									<Field name="client.phoneNumber" class='uk-input create-order-input search-input main-input' placeholder="Номер телефона"/>
+									<Field name="client.phoneNumber" type="tel" class='uk-input create-order-input search-input main-input' placeholder="Номер телефона"/>
 								</div>
 								<ErrorMessage name="client.phoneNumber" class="error-feedback"/>
 							</div>
@@ -177,7 +177,7 @@
 							<div class="uk-width-expand">
 								<div class="uk-inline uk-width-1-1">
 									<span class="uk-form-icon" uk-icon="icon: receiver;"></span>
-									<Field name="payer.phoneNumber" class='uk-input create-order-input search-input main-input' placeholder="Номер телефона"/>
+									<Field name="payer.phoneNumber" type="tel" class='uk-input create-order-input search-input main-input' placeholder="Номер телефона"/>
 								</div>
 								<ErrorMessage name="payer.phoneNumber" class="error-feedback"/>
 							</div>
@@ -190,7 +190,7 @@
 						<ErrorMessage name="payer.title" class='error-feedback'/>
 						<div class="uk-grid-small uk-margin-small-top uk-child-width-1-2" uk-grid>
 							<div>
-								<Field name="payer.INN" class="uk-input main-input" placeholder="ИНН"/>
+								<Field name="payer.INN" type="tel" class="uk-input main-input" placeholder="ИНН"/>
 								<ErrorMessage name="payer.INN" class="error-feedback"/>
 							</div>
 							<div>

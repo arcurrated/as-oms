@@ -3,21 +3,23 @@
 		<div v-if="order">
 			<ul class="uk-margin-remove" uk-accordion="multiple: true;">
 				<li class="accordion-container">
-					<a class="uk-accordion-title accordion-toggler"><span uk-icon="icon: info; ratio: 0.9;"></span>&nbsp;&nbsp;Данные заказ-наряда №{{ order.number }}</a>
+					<a class="uk-accordion-title accordion-toggler"><span uk-icon="icon: info; ratio: 0.9;"></span>&nbsp;&nbsp;Данные з/н №{{ order.number }} <span style="color:#807e7f;">от {{ moment(order.createdAt).format('L') }}</span></a>
 					<div class="uk-accordion-content accordion-content">
 						<h4 class="header">Данные об автомобиле (СТС)</h4>
-						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
+						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Серия, номер СТС</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.STSNumber }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleSTSNumber" v-on:click="editMap.vehicleSTSNumber=true">
+									<p>{{ order.vehicle.STSNumber }}</p>
+								</div>
+								<input type="text" class="uk-input main-input" v-model="order.vehicle.STSNumber" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.STSNumber', order.vehicle.STSNumber)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleSTSNumber">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleSTSNumber=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -25,13 +27,15 @@
 								<div class="edit-param-label"><p>Гос. номер</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.licensePlateNumber }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleLicensePlateNumber" v-on:click="editMap.vehicleLicensePlateNumber=true">
+									<p>{{ order.vehicle.licensePlateNumber }}</p>
+								</div>
+								<input type="text" class="uk-input main-input" v-model="order.vehicle.licensePlateNumber" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.licensePlateNumber', order.vehicle.licensePlateNumber)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleLicensePlateNumber">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleLicensePlateNumber=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -39,14 +43,15 @@
 								<div class="edit-param-label"><p>Марка</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.brand }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleBrand" v-on:click="editMap.vehicleBrand=true">
+									<p>{{ order.vehicle.brand }}</p>
+								</div>
+								<input type="text" class="uk-input main-input" v-model="order.vehicle.brand" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.brand', order.vehicle.brand)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleBrand">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleBrand=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -54,14 +59,15 @@
 								<div class="edit-param-label"><p>Модель</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.model }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleModel" v-on:click="editMap.vehicleModel=true">
+									<p>{{ order.vehicle.model }}</p>
+								</div>
+								<input type="text" class="uk-input main-input" v-model="order.vehicle.model" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.model', order.vehicle.model)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleModel">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleModel=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -69,44 +75,45 @@
 								<div class="edit-param-label"><p>VIN-номер</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.VIN }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleVIN" v-on:click="editMap.vehicleVIN=true">
+									<p>{{ order.vehicle.VIN }}</p>
+								</div>
+								<input type="text" class="uk-input main-input" v-model="order.vehicle.VIN" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.VIN', order.vehicle.VIN)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleVIN">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleVIN=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Год выпуска</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.releaseYear }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleReleaseYear" v-on:click="editMap.vehicleReleaseYear=true">
+									<p>{{ order.vehicle.releaseYear }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.vehicle.releaseYear" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.releaseYear', order.vehicle.releaseYear)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleReleaseYear">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleReleaseYear=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Цвет</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.color }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleColor" v-on:click="editMap.vehicleColor=true">
+									<p>{{ order.vehicle.color }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.color" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.color', order.vehicle.color)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleColor">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleColor=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -114,55 +121,58 @@
 								<div class="edit-param-label"><p>Двигатель</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.engine }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleEngine" v-on:click="editMap.vehicleEngine=true">
+									<p>{{ order.vehicle.engine }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.engine" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.engine', order.vehicle.engine)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleEngine">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleEngine=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Объем дв. (см3)</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.engineVolume }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleEngineVolume" v-on:click="editMap.vehicleEngineVolume=true">
+									<p>{{ order.vehicle.engineVolume }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.vehicle.engineVolume" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.engineVolume', order.vehicle.engineVolume)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleEngineVolume">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleEngineVolume=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Мощь (кВт/л.с.)</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.enginePower }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleEnginePower" v-on:click="editMap.vehicleEnginePower=true">
+									<p>{{ order.vehicle.enginePower }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.enginePower" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.enginePower', order.vehicle.enginePower)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleEnginePower">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleEnginePower=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
-
-
-
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
-								<div class="edit-param-label"><p>Пробег</p></div>
+								<div class="edit-param-label"><p>Старт. пробег</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.mileageInit }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.mileageInit" v-on:click="editMap.mileageInit=true">
+									<p>{{ order.mileageInit }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.mileageInit" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('mileageInit', order.mileageInit)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.mileageInit">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.mileageInit=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -171,10 +181,13 @@
 								<div class="edit-param-label"><p>Оконч. пробег</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.mileageDone }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.mileageDone" v-on:click="editMap.mileageDone=true">
+									<p>{{ order.mileageDone }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.mileageDone" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('mileageDone', order.mileageDone)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.mileageDone">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.mileageDone=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -186,10 +199,13 @@
 								<div class="edit-param-label"><p>ФИО</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerFIO }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerFIO" v-on:click="editMap.vehicleOwnerFIO=true">
+									<p>{{ order.vehicle.ownerFIO }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerFIO" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerFIO', order.vehicle.ownerFIO)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerFIO">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerFIO=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -200,14 +216,15 @@
 								<div class="edit-param-label"><p>Респ, край, обл.</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerRepublic }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerRepublic" v-on:click="editMap.vehicleOwnerRepublic=true">
+									<p>{{ order.vehicle.ownerRepublic }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerRepublic" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerRepublic', order.vehicle.ownerRepublic)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerRepublic">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerRepublic=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -215,14 +232,15 @@
 								<div class="edit-param-label"><p>Район</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerDistrict }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerDistrict" v-on:click="editMap.vehicleOwnerDistrict=true">
+									<p>{{ order.vehicle.ownerDistrict }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerDistrict" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerDistrict', order.vehicle.ownerDistrict)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerDistrict">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerDistrict=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -230,14 +248,15 @@
 								<div class="edit-param-label"><p>Нас. пункт</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerCity }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerCity" v-on:click="editMap.vehicleOwnerCity=true">
+									<p>{{ order.vehicle.ownerCity }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerCity" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerCity', order.vehicle.ownerCity)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerCity">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerCity=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -245,14 +264,15 @@
 								<div class="edit-param-label"><p>Улица</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerStreet }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerStreet" v-on:click="editMap.vehicleOwnerStreet=true">
+									<p>{{ order.vehicle.ownerStreet }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerStreet" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerStreet', order.vehicle.ownerStreet)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerStreet">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerStreet=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -260,14 +280,15 @@
 								<div class="edit-param-label"><p>Дом</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerHouse }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerHouse" v-on:click="editMap.vehicleOwnerHouse=true">
+									<p>{{ order.vehicle.ownerHouse }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerHouse" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerHouse', order.vehicle.ownerHouse)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerHouse">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerHouse=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -275,30 +296,34 @@
 								<div class="edit-param-label"><p>Квартира</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.ownerAppartment }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleOwnerAppartment" v-on:click="editMap.vehicleOwnerAppartment=true">
+									<p>{{ order.vehicle.ownerAppartment }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.ownerAppartment" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.ownerAppartment', order.vehicle.ownerAppartment)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleOwnerAppartment">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleOwnerAppartment=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
 
 
-
 						<h4 class="header uk-margin-small-top">СТС Выдано</h4>
+
 						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Орган</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.vehicle.STSReleaseDepartment }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleSTSReleaseDepartment" v-on:click="editMap.vehicleSTSReleaseDepartment=true">
+									<p>{{ order.vehicle.STSReleaseDepartment }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.vehicle.STSReleaseDepartment" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.STSReleaseDepartment', order.vehicle.STSReleaseDepartment)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleSTSReleaseDepartment">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleSTSReleaseDepartment=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -306,95 +331,116 @@
 								<div class="edit-param-label"><p>Когда</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ moment(order.vehicle.STSReleaseDate).format('L') }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.vehicleSTSReleaseDate" v-on:click="editMap.vehicleSTSReleaseDate=true">
+									<p>{{ moment(order.vehicle.STSReleaseDate).format('L') }}</p>
+								</div>
+								<input type="date" class="uk-input main-input" v-model="order.vehicle.STSReleaseDate" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('vehicle.STSReleaseDate', order.vehicle.STSReleaseDate)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.vehicleSTSReleaseDate">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.vehicleSTSReleaseDate=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
 
-
 						<h4 class="header uk-margin-small-top">Клиент</h4>
+
 						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Телефон</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.client.phoneNumber }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientPhoneNumber" v-on:click="editMap.clientPhoneNumber=true">
+									<p>{{ order.client.phoneNumber }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.client.phoneNumber" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.phoneNumber', order.client.phoneNumber)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientPhoneNumber">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientPhoneNumber=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Фамилия</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.client.lastName }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientLastName" v-on:click="editMap.clientLastName=true">
+									<p>{{ order.client.lastName }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.client.lastName" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.lastName', order.client.lastName)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientLastName">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientLastName=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Имя</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.client.firstName }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientFirstName" v-on:click="editMap.clientFirstName=true">
+									<p>{{ order.client.firstName }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.client.firstName" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.firstName', order.client.firstName)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientFirstName">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientFirstName=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Отчество</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.client.middleName }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientMiddleName" v-on:click="editMap.clientMiddleName=true">
+									<p>{{ order.client.middleName }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.client.middleName" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.middleName', order.client.middleName)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientMiddleName">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientMiddleName=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
-								<div class="edit-param-label"><p>Дата рождения</p></div>
+								<div class="edit-param-label"><p>День рождения</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ moment(order.client.bdate).format('L') }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientBdate" v-on:click="editMap.clientBdate=true">
+									<p>{{ moment(order.client.bdate).format('L') }}</p>
+								</div>
+								<input type="date" class="uk-input main-input" v-model="order.client.bdate" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.bdate', order.client.bdate)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientBdate">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientBdate=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
+
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Пол</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>
-									<span v-if="order.client.sex == 1">Муж</span>
-									<span v-else-if="order.client.sex == 2">Жен</span>
-									<span v-else>Не определен</span>
-								</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientSex" v-on:click="editMap.clientSex=true">
+									<p>
+										<span v-if="order.client.sex == 1">Муж</span>
+										<span v-else-if="order.client.sex == 2">Жен</span>
+										<span v-else>Не выбран</span>
+									</p>
+								</div>
+								<select class="uk-select" style="line-height: 24px !important; height: 24px !important;" v-model="order.client.sex" v-else>
+									<option value="0">Не выбран</option>
+									<option value="1">Муж</option>
+									<option value="2">Жен</option>
+								</select>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.sex', order.client.sex)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientSex">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientSex=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -405,10 +451,13 @@
 								<div class="edit-param-label"><p>Email</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.client.email }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.clientEmail" v-on:click="editMap.clientEmail=true">
+									<p>{{ order.client.email }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.client.email" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('client.email', order.client.email)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.clientEmail">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.clientEmail=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -420,37 +469,43 @@
 								<div class="edit-param-label"><p>Телефон</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.payer.phoneNumber }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.payerPhoneNumber" v-on:click="editMap.payerPhoneNumber=true">
+									<p>{{ order.payer.phoneNumber }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.payer.phoneNumber" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('payer.phoneNumber', order.payer.phoneNumber)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.payerPhoneNumber">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.payerPhoneNumber=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>Плательщик</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.payer.title }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.payerTitle" v-on:click="editMap.payerTitle=true">
+									<p>{{ order.payer.title }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.payer.title" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('payer.title', order.payer.title)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.payerTitle">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.payerTitle=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
-
 
 						<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
 							<div>
 								<div class="edit-param-label"><p>ИНН</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.payer.INN }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.payerINN" v-on:click="editMap.payerINN=true">
+									<p>{{ order.payer.INN }}</p>
+								</div>
+								<input type="tel" class="uk-input main-input" v-model="order.payer.INN" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('payer.INN', order.payer.INN)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.payerINN">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.payerINN=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
@@ -460,47 +515,53 @@
 								<div class="edit-param-label"><p>Адрес</p></div>
 							</div>
 							<div class="uk-width-expand">
-								<div class="edit-param-value"><p>{{ order.payer.address }}</p></div>
+								<div class="edit-param-value" v-if="!editMap.payerAddress" v-on:click="editMap.payerAddress=true">
+									<p>{{ order.payer.address }}</p>
+								</div>
+								<input class="uk-input main-input" v-model="order.payer.address" v-else>
 							</div>
-							<div>
-								<a class="edit-btn" v-on:click="() => {editValue('payer.address', order.payer.address)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.payerAddress">
+								<a class="edit-btn" style="padding: 2px 0px;" v-on:click="editMap.payerAddress=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
 
 						<h4 class="header uk-margin-small-top">Причина обращения</h4>
-						<div class="uk-grid-small edit-param-block" uk-grid>
+						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div class="uk-width-expand">
-								<div class="edit-param-value">
+								<div class="edit-param-value" v-if="!editMap.reason" v-on:click="editMap.reason=true">
 									<p style="line-height: 15px;padding: 5px 0px;height: 60px;width:100%;">{{ order.reason }}</p>
 								</div>
+								<textarea class="uk-textarea main-input" v-model="order.reason" rows=3 v-else></textarea>
 							</div>
-							<div>
-								<a class="edit-btn" style="padding-top:20px;padding-bottom: 20px;" v-on:click="() => {editValue('reason', order.reason)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.reason">
+								<a class="edit-btn" style="padding: 20px 0px;" v-on:click="editMap.reason=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
 						<h4 class="header">Рекомендации</h4>
-						<div class="uk-grid-small edit-param-block" uk-grid>
+						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div class="uk-width-expand">
-								<div class="edit-param-value">
+								<div class="edit-param-value" v-if="!editMap.recomendations" v-on:click="editMap.recomendations=true">
 									<p style="line-height: 15px;padding: 5px 0px;height: 60px;width:100%;">{{ order.recomendations }}</p>
 								</div>
+								<textarea class="uk-textarea main-input" v-model="order.recomendations" rows=3 v-else></textarea>
 							</div>
-							<div>
-								<a class="edit-btn" style="padding-top:20px;padding-bottom: 20px;" v-on:click="() => {editValue('recomendations', order.recomendations)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.recomendations">
+								<a class="edit-btn" style="padding: 20px 0px;" v-on:click="editMap.recomendations=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 
-						<h4 class="header">Заметки</h4>
-						<div class="uk-grid-small edit-param-block" uk-grid>
+						<h4 class="header">Заметки <small>(не печатаются)</small></h4>
+						<div class='uk-grid-small edit-param-block' uk-grid>
 							<div class="uk-width-expand">
-								<div class="edit-param-value">
+								<div class="edit-param-value" v-if="!editMap.notes" v-on:click="editMap.notes=true">
 									<p style="line-height: 15px;padding: 5px 0px;height: 60px;width:100%;">{{ order.notes }}</p>
 								</div>
+								<textarea class="uk-textarea main-input" v-model="order.notes" rows=3 v-else></textarea>
 							</div>
-							<div>
-								<a class="edit-btn" style="padding-top:20px;padding-bottom: 20px;" v-on:click="() => {editValue('notes', order.notes)}"><span uk-icon="icon: pencil"></span></a>
+							<div v-if="editMap.notes">
+								<a class="edit-btn" style="padding: 20px 0px;" v-on:click="editMap.notes=false; updateOrder();"><span uk-icon="icon: check;"></span></a>
 							</div>
 						</div>
 					</div>
@@ -542,10 +603,10 @@
 									<input class="uk-input main-input" placeholder="Название работы" v-model="operation.title"/>
 									<div class="uk-grid-small uk-margin-small-top uk-child-width-1-2" uk-grid>
 										<div>
-											<input type="number" placeholder="Цена" class="uk-input main-input" v-model="operation.price" />		
+											<input type="tel" placeholder="Цена" class="uk-input main-input" v-model="operation.price" />		
 										</div>
 										<div class="x-before">
-											<input type="number" class="uk-input main-input" placeholder="Количество" v-model="operation.count" />
+											<input type="tel" class="uk-input main-input" placeholder="Количество" v-model="operation.count" />
 										</div>
 									</div>
 								</div>
@@ -594,10 +655,10 @@
 									<input class="uk-input main-input" placeholder="Название запчасти" v-model="part.title"/>
 									<div class="uk-grid-small uk-margin-small-top uk-child-width-1-2" uk-grid>
 										<div>
-											<input type="number" class="uk-input main-input" placeholder="Цена" v-model="part.price" />		
+											<input type="tel" class="uk-input main-input" placeholder="Цена" v-model="part.price" />		
 										</div>
 										<div class="x-before">
-											<input type="number" class="uk-input main-input" placeholder="Количество" v-model="part.count" />
+											<input type="tel" class="uk-input main-input" placeholder="Количество" v-model="part.count" />
 										</div>
 									</div>
 								</div>
@@ -619,7 +680,7 @@
 					<div>
 						<div class="uk-grid-small" uk-grid>
 							<div class="uk-width-expand">
-								<div v-if="!editingStatus">
+								<div v-if="!editMap.status">
 									<p style="margin: 0px; text-align: right;font-size: 0.8em;color:#b9c6bf;">Статус</p>
 									<p style="margin: 0px; text-align: right; font-size: 1.2em; color: #64736f;" v-if="order.status==1">ОТКРЫТ</p>
 									<p style="margin: 0px; text-align: right; font-size: 1.2em; color: #ff6160;" v-else-if="order.status==2">В РАБОТЕ</p>
@@ -630,7 +691,7 @@
 								</div>
 								<div v-else>
 									<select v-model="order.status" class="uk-select">
-										<option value="0">В плане</option>
+										<option value="0" default>В плане</option>
 										<option value="1">Открыт</option>
 										<option value="2">В работе</option>
 										<option value="3">Ожидает запчасти</option>
@@ -640,7 +701,7 @@
 								</div>
 							</div>
 							<div>
-								<a class="edit-status-btn" v-on:click="() => {editingStatus=true}" v-if="!editingStatus"><span uk-icon="icon: pencil;ratio: 1.1;"></span></a>						
+								<a class="edit-status-btn" v-on:click="editMap.status=true" v-if="!editMap.status"><span uk-icon="icon: pencil;ratio: 1.1;"></span></a>						
 								<a class="edit-status-btn" v-on:click="editOrderStatusDone" v-else><span uk-icon="icon: check;ratio: 1.1;"></span></a>
 							</div>
 						</div>
@@ -662,7 +723,7 @@
 					<p class="input-header" style="color: rgb(161, 174, 169); margin-top: 5px;">Финальный пробег</p>
 					<div class="uk-grid-small edit-param-block" uk-grid v-if="editingMileageDone">
 						<div class="uk-width-expand">
-							<input type="number" class="uk-input main-input" v-model="order.mileageDone">
+							<input type="tel" class="uk-input main-input" v-model="order.mileageDone">
 						</div>
 						<div>
 							<a class="done-btn" style="padding: 10px 5px;width: 30px;" v-on:click="() => {editingMileageDone = false; updateOrder();}"><span uk-icon="icon: check;"></span></a>
@@ -688,7 +749,7 @@ import OrderService from '../services/order.service'
 export default {
 	name: 'editOrder',
 	data() {
-		return { orderId: null, order: null, editingStatus: false, editingRecomendations: false, editingMileageDone: false,}
+		return { orderId: null, order: null, editingRecomendations: false, editingMileageDone: false, editMap: {}, }
 	},
 	mounted() {
 		if(!this.$store.state.auth.status.loggedIn){
@@ -697,6 +758,8 @@ export default {
 		this.orderId = this.$route.params.id
 		OrderService.getById(this.orderId).then(resp => {
 			this.order = resp.data
+			this.order.vehicle.STSReleaseDate = this.order.vehicle.STSReleaseDate.split('T')[0]
+			this.order.client.bdate = this.order.client.bdate.split('T')[0]
 			this.order.lastOpenedAt = new Date()
 			this.updateOrder(true)
 		}, err => {
@@ -798,7 +861,7 @@ export default {
 			this.updateOrder()
 		},
 		editOrderStatusDone(){
-			this.editingStatus = false
+			this.editMap.status = false
 			if(this.order.status == 4){
 				window.UIkit.notification("Не забудьте добавить рекомендации и указать финальный пробег!", {status: "warning"})
 			}
@@ -888,6 +951,10 @@ export default {
 	margin-left: -10px;
 }
 /* rewrite */
+.edit-param-block input.main-input {
+	height: 24px !important;
+	line-height: 24px !important;
+}
 .uk-grid-small {
 	margin-left: -10px !important;
 }
