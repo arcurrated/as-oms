@@ -1,5 +1,8 @@
 <template>
 	<div class="uk-container">
+		<div v-if="loading" class="uk-flex uk-flex-center uk-margin-small-top">
+			<div uk-spinner></div>
+		</div>
 		<div v-if="order">
 			<ul class="uk-margin-remove" uk-accordion="multiple: true;">
 				<li class="accordion-container">
@@ -749,7 +752,7 @@ import OrderService from '../services/order.service'
 export default {
 	name: 'editOrder',
 	data() {
-		return { orderId: null, order: null, editingRecomendations: false, editingMileageDone: false, editMap: {}, }
+		return { orderId: null, loading: true, order: null, editingRecomendations: false, editingMileageDone: false, editMap: {}, }
 	},
 	mounted() {
 		if(!this.$store.state.auth.status.loggedIn){
@@ -762,8 +765,10 @@ export default {
 			this.order.client.bdate = this.order.client.bdate.split('T')[0]
 			this.order.lastOpenedAt = new Date()
 			this.updateOrder(true)
+			this.loading = false
 		}, err => {
 			window.UIkit.notification(err.response.data.message, {status: "danger"})
+			this.loading = false
 		})
 	},
 	computed: {

@@ -1,5 +1,8 @@
 <template>
 	<div class="uk-container">
+		<div v-if="loading" class="uk-flex uk-flex-center uk-margin-small-top">
+			<div uk-spinner></div>
+		</div>
 		<h1 style="color:red;" v-if="errorMessage">{{ errorMessage }}</h1>
 		<div v-if="order">
 			<iframe id="printArea" name="printArea" style="display: none;"></iframe>
@@ -123,13 +126,15 @@ import CommonsService from '../services/commons.service'
 export default {
 	name: 'PrintOrder',
 	data(){
-		return { order: null, errorMessage: null, commons: {} }
+		return { order: null, errorMessage: null, loading: true, commons: {} }
 	},
 	mounted(){
 		const orderId = this.$route.params.id
 		OrderService.getById(orderId).then(resp => {
 			this.order = resp.data
+			this.loading = false
 		}, err => {
+			this.loading = false
 			this.errorMessage = err.response.data.message
 		})
 		CommonsService.get().then(resp => {
