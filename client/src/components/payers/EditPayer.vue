@@ -12,12 +12,11 @@
 							<div class="edit-param-label"><p>Номер телефона</p></div>
 						</div>
 						<div class="uk-width-expand">
-							<div class="edit-param-value" v-if="!editMap.phoneNumber"><p>{{ payer.phoneNumber }}</p></div>
-							<input class="uk-input main-input" v-model="payer.phoneNumber" v-else>
+							<div class="edit-param-value" v-on:click="editMap.phoneNumber = true" v-if="!editMap.phoneNumber"><p>{{ payer.phoneNumber }}</p></div>
+							<input class="uk-input main-input" type="tel" v-model="payer.phoneNumber" v-else>
 						</div>
-						<div>
-							<a class="edit-btn" v-on:click="editMap.phoneNumber = true" v-if="!editMap.phoneNumber"><span uk-icon="icon: pencil"></span></a>
-							<a class="edit-btn" style="padding: 5px 0px" v-on:click="editMap.phoneNumber = false; update();" v-else><span uk-icon="icon: check;"></span></a>
+						<div v-if="editMap.phoneNumber">
+							<a class="edit-btn" style="padding: 2px 0px" v-on:click="editMap.phoneNumber = false; update();"><span uk-icon="icon: check;"></span></a>
 						</div>
 					</div>
 					<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -25,12 +24,11 @@
 							<div class="edit-param-label"><p>Плательщик</p></div>
 						</div>
 						<div class="uk-width-expand">
-							<div class="edit-param-value" v-if="!editMap.title"><p>{{ payer.title }}</p></div>
+							<div class="edit-param-value" v-on:click="editMap.title = true" v-if="!editMap.title"><p>{{ payer.title }}</p></div>
 							<input class="uk-input main-input" v-model="payer.title" v-else>
 						</div>
-						<div>
-							<a class="edit-btn" v-on:click="editMap.title = true" v-if="!editMap.title"><span uk-icon="icon: pencil"></span></a>
-							<a class="edit-btn" style="padding: 5px 0px" v-on:click="editMap.title = false; update();" v-else><span uk-icon="icon: check;"></span></a>
+						<div v-if="editMap.title">
+							<a class="edit-btn" style="padding: 2px 0px" v-on:click="editMap.title = false; update();"><span uk-icon="icon: check;"></span></a>
 						</div>
 					</div>
 					<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -38,12 +36,11 @@
 							<div class="edit-param-label"><p>ИНН</p></div>
 						</div>
 						<div class="uk-width-expand">
-							<div class="edit-param-value" v-if="!editMap.INN"><p>{{ payer.INN }}</p></div>
-							<input class="uk-input main-input" v-model="payer.INN" v-else>
+							<div class="edit-param-value" v-on:click="editMap.INN = true" v-if="!editMap.INN"><p>{{ payer.INN }}</p></div>
+							<input class="uk-input main-input" type="tel" v-model="payer.INN" v-else>
 						</div>
-						<div>
-							<a class="edit-btn" v-on:click="editMap.INN = true" v-if="!editMap.INN"><span uk-icon="icon: pencil"></span></a>
-							<a class="edit-btn" style="padding: 5px 0px" v-on:click="editMap.INN = false; update();" v-else><span uk-icon="icon: check;"></span></a>
+						<div v-if="editMap.INN">
+							<a class="edit-btn" style="padding: 2px 0px" v-on:click="editMap.INN = false; update();"><span uk-icon="icon: check;"></span></a>
 						</div>
 					</div>
 					<div class='uk-grid-small uk-margin-small-top edit-param-block' uk-grid>
@@ -51,18 +48,19 @@
 							<div class="edit-param-label"><p>Адрес</p></div>
 						</div>
 						<div class="uk-width-expand">
-							<div class="edit-param-value" v-if="!editMap.address"><p>{{ payer.address }}</p></div>
+							<div class="edit-param-value" v-on:click="editMap.address = true" v-if="!editMap.address"><p>{{ payer.address }}</p></div>
 							<input class="uk-input main-input" v-model="payer.address" v-else>
 						</div>
-						<div>
-							<a class="edit-btn" v-on:click="editMap.address = true" v-if="!editMap.address"><span uk-icon="icon: pencil"></span></a>
-							<a class="edit-btn" style="padding: 5px 0px" v-on:click="editMap.address = false; update();" v-else><span uk-icon="icon: check;"></span></a>
+						<div v-if="editMap.address">
+							<a class="edit-btn" style="padding: 2px 0px" v-on:click="editMap.address = false; update();"><span uk-icon="icon: check;"></span></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button class="uk-button uk-button-primary main-btn uk-button-small uk-margin-small-top uk-margin-bottom uk-width-1-1" style="background: #fe4f70 !important;" v-on:click="remove"><span uk-icon="icon: trash; ratio: 0.8;"></span>&nbsp;&nbsp;Удалить</button>
+		<div class="uk-margin-small-top uk-margin-bottom" style="padding:0px 10px;">
+			<button class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" style="background: #fe4f70 !important;" v-on:click="remove"><span uk-icon="icon: trash; ratio: 0.8;"></span>&nbsp;&nbsp;Удалить</button>	
+		</div>
 	</div>
 </template>
 

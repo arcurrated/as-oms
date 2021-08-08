@@ -414,7 +414,8 @@
 							</div>
 							<div class="uk-width-expand">
 								<div class="edit-param-value" v-if="!editMap.clientBdate" v-on:click="editMap.clientBdate=true">
-									<p>{{ moment(order.client.bdate).format('L') }}</p>
+									<p v-if="order.client.bdate">{{ moment(order.client.bdate).format('L') }}</p>
+									<p v-else></p>
 								</div>
 								<input type="date" class="uk-input main-input" v-model="order.client.bdate" v-else>
 							</div>
@@ -761,8 +762,12 @@ export default {
 		this.orderId = this.$route.params.id
 		OrderService.getById(this.orderId).then(resp => {
 			this.order = resp.data
-			this.order.vehicle.STSReleaseDate = this.order.vehicle.STSReleaseDate.split('T')[0]
-			this.order.client.bdate = this.order.client.bdate.split('T')[0]
+			if(this.order.vehicle.STSReleaseDate){
+				this.order.vehicle.STSReleaseDate = this.order.vehicle.STSReleaseDate.split('T')[0]
+			}
+			if(this.order.client.bdate) {
+				this.order.client.bdate = this.order.client.bdate.split('T')[0]
+			}
 			this.order.lastOpenedAt = new Date()
 			this.updateOrder(true)
 			this.loading = false
@@ -810,23 +815,6 @@ export default {
 				}
 			}, err => {
 				window.UIkit.notification(err.response.data.message, {status: "danger"})
-			})
-		},
-		editValue(target, currValue){
-			window.UIkit.modal.prompt("Введите новое значение:", currValue).then((newVal) => {
-				if(newVal === null){
-					return
-				}
-				let path = target.split('.')
-				if(path.length == 1){
-					this.order[path[0]] = newVal
-				} else if(path.length == 2){
-					this.order[path[0]][path[1]] = newVal
-				} else {
-					alert('Deep target in edit value. ERROR')
-					return
-				}
-				this.updateOrder()
 			})
 		},
 		addOperation(){
@@ -956,10 +944,6 @@ export default {
 	margin-left: -10px;
 }
 /* rewrite */
-.edit-param-block input.main-input {
-	height: 24px !important;
-	line-height: 24px !important;
-}
 .uk-grid-small {
 	margin-left: -10px !important;
 }

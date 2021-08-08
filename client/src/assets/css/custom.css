@@ -220,21 +220,29 @@ html {
     width: 150px;
 }
 .edit-param-block p {
-    width: 500px;
     line-height: 20px;
     height: 20px;
     margin: 0px;
+    word-break: break-all;
 }
 .edit-param-value {
     overflow: hidden;
     font-weight: 600;
-    padding: 0px 8px;
+    padding: 0px 20px 0px 8px;
     border-radius: 5px;
     background-color: #f0fff8;
     color: #2f7559;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23bac1be' d='M17.25,6.01 L7.12,16.1 L3.82,17.2 L5.02,13.9 L15.12,3.88 C15.71,3.29 16.66,3.29 17.25,3.88 C17.83,4.47 17.83,5.42 17.25,6.01 L17.25,6.01 Z'%3E%3C/path%3E%3Cpath fill='none' stroke='%23bac1be' d='M15.98,7.268 L13.851,5.148'%3E%3C/path%3E%3C/svg%3E");
+    background-position-x: 99%;
+    background-position-y: 1px;
 }
 .edit-param-value > p {
     overflow: hidden;
+}
+.edit-param-block input.main-input {
+    height: 24px !important;
+    line-height: 24px !important;
 }
 .header {
     margin: 0px;

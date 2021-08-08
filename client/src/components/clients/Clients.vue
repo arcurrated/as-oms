@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<div class="uk-grid-small margin-small-top" uk-grid>
-							<div class="filter-label-container"><p class="filter-label">Д.р.</p></div>
+							<div class="filter-label-container"><p class="filter-label">День рожд.</p></div>
 							<div class="uk-width-expand">
 								<input type="date" class="uk-input main-input" v-model="rawFilter.bdate">
 							</div>
