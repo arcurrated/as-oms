@@ -12,6 +12,7 @@ db.clients = require('./client.model.js')(mongoose, mongoosePaginate)
 db.payers = require('./payer.model.js')(mongoose, mongoosePaginate)
 db.operations = require('./operation.model.js')(mongoose, mongoosePaginate)
 db.parts = require('./part.model.js')(mongoose, mongoosePaginate)
+db.serviceSets = require('./serviceSet.model.js')(mongoose, mongoosePaginate)
 
 db.commons = require('./commons.model.js')(mongoose)
 db.users = require('./user.model.js')(mongoose)

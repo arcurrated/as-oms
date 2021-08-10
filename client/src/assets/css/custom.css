@@ -35,12 +35,22 @@ html {
   background: #116c4c !important;
 }
 
-.main-input{
 
+.main-input{
     border-radius: 5px !important;
     background: #f0fff8 !important;
     border: 1px solid #979797 !important;
 
+}
+
+.main-input-md {
+    height: 30px;
+    line-height: 30px;
+}
+
+.main-input-sm {
+    height: 24px;
+    line-height: 24px;
 }
 
 .main-input:focus {

@@ -1,9 +1,13 @@
 const db = require('../models')
 const Part = db.parts
 const DEFAULT_PER_PAGE = process.env.DEFAULT_PER_PAGE || 5
+const MAX_PER_PAGE = process.env.MAX_PER_PAGE || 50
 
 const getPagination = (page, size) => {
-	const limit = size ? +size : DEFAULT_PER_PAGE
+	let limit = size ? +size : DEFAULT_PER_PAGE
+	if(limit > MAX_PER_PAGE){
+		limit = MAX_PER_PAGE
+	}
 	const offset = page ? (page-1) * limit : 0
 
 	return {offset, limit}
@@ -38,6 +42,7 @@ exports.findAll = (req, res) => {
 			totalItems: data.totalDocs,
 			currentPage: data.page,
 			parts: data.docs,
+			perPage: limit,
 		})
 	}).catch(err => {
 		res.status(500).send({ message: err.message || "Server error" })

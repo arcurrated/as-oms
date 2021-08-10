@@ -17,6 +17,9 @@ const editClient = () => import('./components/clients/EditClient.vue')
 const payers = () => import('./components/payers/Payers.vue')
 const editPayer = () => import('./components/payers/EditPayer.vue')
 
+const serviceSets = () => import('./components/serviceSets/ServiceSets.vue')
+const editServiceSet = () => import('./components/serviceSets/EditServiceSet.vue')
+
 const routes = [
 	{
 		path: "/",
@@ -88,6 +91,18 @@ const routes = [
 		name: 'editpayer',
 		component: editPayer,
 		meta: {title : "Редактирование пресета"}
+	},
+	{
+		path: '/servicesets',
+		name: 'servicesets',
+		component: serviceSets,
+		meta: { title: "Сеты обслуживания" }
+	},
+	{
+		path: '/editserviceset/:id',
+		name: 'editserviceset',
+		component: editServiceSet,
+		meta: {title : "Редактирование сета"}
 	},
 	{
 		path: "/login",

@@ -200,6 +200,16 @@
 						</div>
 					</div>
 				</li>
+				<li class="accordion-container">
+					<a class="uk-accordion-title accordion-toggler">
+						<span v-if="!serviceSet">Выбрать сет обслуживания <span class="uk-text-muted">(необяз.)</span></span>
+						<span v-else>Сет "{{ serviceSet.title }}" <span class="uk-text-muted">на {{ serviceSet.totalPrice }}₽</span></span>
+					</a>
+					<div class="uk-accordion-content accordion-content">
+						<a class="uk-button uk-button-primary main-btn uk-button-small uk-width-1-1" v-if="serviceSet" v-on:click="serviceSet=null" style="background: #fe4f70 !important;">Очистить</a>
+						<ServiceSetSelector v-on:select="selectServiceSet" v-else/>
+					</div>
+				</li>
 			</ul>
 			<p class="input-header">Причина обращения</p>
 			<Field name="reason" class="uk-textarea main-input" placeholder="причина обращения" as="textarea" rows=5></Field>
@@ -221,11 +231,12 @@ import { Form, Field, ErrorMessage } from "vee-validate"
 import searchVehicleModal from './modals/SearchVehicleModal.vue'
 import searchClientModal from './modals/SearchClientModal.vue'
 import searchPayerModal from './modals/SearchPayerModal.vue'
+import ServiceSetSelector from './serviceSets/Selector.vue'
 import * as yup from "yup"
 
 export default {
 	name: 'createOrder',
-	components: { Form, Field, ErrorMessage, searchVehicleModal, searchClientModal, searchPayerModal },
+	components: { Form, Field, ErrorMessage, searchVehicleModal, searchClientModal, searchPayerModal, ServiceSetSelector },
 	data() {
 		let schema = yup.object().shape({
 			vehicle: yup.object().shape({
@@ -269,16 +280,27 @@ export default {
 			notes: yup.string(),
 			status: yup.number().default(),
 		})
-		return { schema, patternSearchVehicleModal: '', patternSearchClientModal: '', patternSearchPayerModal: '' }
+		return { 
+			schema, 
+			patternSearchVehicleModal: '', 
+			patternSearchClientModal: '', 
+			patternSearchPayerModal: '', 
+			serviceSet: null,
+		}
 	},
 	mounted() {
 		if(!this.$store.state.auth.status.loggedIn){
 			this.$router.push('/login')
+			return
 		}
 	},
 	methods: {
 		handleSubmit(order){
 			order.mileageDone = order.mileageInit
+			if(this.serviceSet){
+				order.operations = this.serviceSet.operations
+				order.parts = this.serviceSet.parts
+			}
 			OrderService.create(order).then((resp) => {
 				window.UIkit.notification("Заказ-наряд успешно создан", {status: "success"})
 				this.$router.push({ name: 'editorder', params: {id: resp.data.id}})
@@ -344,6 +366,10 @@ export default {
 			setFieldValue("payer.title", `${values.client.lastName || ''} ${values.client.firstName || ''} ${values.client.middleName || ''}`)
 			setFieldValue("payer.address", `${values.vehicle.ownerCity || ''}, ул ${values.vehicle.ownerStreet || ''}, дом ${values.vehicle.ownerHouse || ''}, кв ${values.vehicle.ownerAppartment || ''}`)
 		},
+		selectServiceSet(set){
+			window.UIkit.accordion('.uk-accordion').toggle(3)
+			this.serviceSet = set
+		}
 	}
 }
 

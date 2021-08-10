@@ -1,9 +1,13 @@
 const db = require('../models')
 const Vehicle = db.vehicles
 const DEFAULT_PER_PAGE = process.env.DEFAULT_PER_PAGE || 5
+const MAX_PER_PAGE = process.env.MAX_PER_PAGE || 50
 
 const getPagination = (page, size) => {
-	const limit = size ? +size : DEFAULT_PER_PAGE
+	let limit = size ? +size : DEFAULT_PER_PAGE
+	if(limit > MAX_PER_PAGE){
+		limit = MAX_PER_PAGE
+	}
 	const offset = page ? (page-1) * limit : 0
 
 	return {offset, limit}
@@ -43,7 +47,8 @@ exports.findAll = (req, res) => {
 			totalItems: data.totalDocs,
 			vehicles: data.docs,
 			totalPages: data.totalPages,
-			currentPage: data.page
+			currentPage: data.page,
+			perPage: limit,
 		})
 	}).catch(err => {
 		res.status(500).send({ message: err.message || "Error while extracting vehicles" })

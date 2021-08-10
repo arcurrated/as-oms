@@ -1,5 +1,5 @@
 const db = require('../models')
-const Operation = db.operations
+const ServiceSet = db.serviceSets
 const DEFAULT_PER_PAGE = process.env.DEFAULT_PER_PAGE || 5
 const MAX_PER_PAGE = process.env.MAX_PER_PAGE || 50
 
@@ -23,6 +23,16 @@ const buildQuery = filter => {
 	return query
 }
 
+exports.create = (req, res) => {
+	const serviceSet = new ServiceSet(req.body)
+
+	serviceSet.save(serviceSet).then(data => {
+		res.send(data)
+	}).catch(err => {
+		res.status(500).send({message: err.message || "Some error occurred while adding service set"})
+	})
+}
+
 exports.findAll = (req, res) => {
 	const { page, perPage, body } = req.query
 	const { offset, limit } = getPagination(page,perPage)
@@ -36,12 +46,12 @@ exports.findAll = (req, res) => {
 	}
 	const query = buildQuery(filter)
 
-	Operation.paginate(query, { offset, limit, sort }).then(data => {
+	ServiceSet.paginate(query, { offset, limit, sort }).then(data => {
 		res.send({
 			totalPages: data.totalPages,
 			totalItems: data.totalDocs,
-			operations: data.docs,
 			currentPage: data.page,
+			serviceSets: data.docs,
 			perPage: limit,
 		})
 	}).catch(err => {
@@ -52,7 +62,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
 	const id = req.params.id
 
-	Operation.findById(id).then(data => {
+	ServiceSet.findById(id).then(data => {
 		if(!data){
 			res.status(404).send({ message: "Not found" })
 		} else {
@@ -65,13 +75,15 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
 	const id = req.params.id
-
-	Operation.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
+	ServiceSet.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
 		if(!data){
 			res.status(404).send({ message: "Not found" })
 			return
 		}
-		Operation.findById(id).then(res.send).catch(err => {
+		ServiceSet.findById(id).then((data) =>{
+			res.send(data)
+		}).catch(err => {
+			console.log(err)
 			res.status(500).send({ message: err.message || "Server error" })
 		})
 	}).catch(err => {
@@ -82,7 +94,7 @@ exports.update = (req, res) => {
 exports.deleteOne = (req, res) => {
 	const id = req.params.id
 
-	Operation.findByIdAndDelete(id).then(data => {
+	ServiceSet.findByIdAndDelete(id).then(data => {
 		if(!data){
 			res.status(404).send({ message: "Not found" })
 		} else {

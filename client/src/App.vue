@@ -15,6 +15,7 @@
                 <li><router-link to="/vehicles">Автомобили</router-link></li>
                 <li><router-link to="/clients">Клиенты</router-link></li>
                 <li><router-link to="/payers">Плательщики</router-link></li>
+                <li><router-link to="/servicesets">Сеты обслуживания</router-link></li>
               </ul>
             </div>
           </li>
@@ -51,6 +52,7 @@
             <li><router-link to="/vehicles">&nbsp;&nbsp;Автомобили</router-link></li>
             <li><router-link to="/clients">&nbsp;&nbsp;Клиенты</router-link></li>
             <li><router-link to="/payers">&nbsp;&nbsp;Плательщики</router-link></li>
+            <li><router-link to="/servicesets">&nbsp;&nbsp;Сеты обслуживания</router-link></li>
           </ul>
         </li>
         <li class="uk-nav-divider"></li>

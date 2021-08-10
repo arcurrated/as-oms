@@ -51,6 +51,7 @@ require('./app/routes/payer.routes.js')(app)
 require('./app/routes/operation.routes.js')(app)
 require('./app/routes/part.routes.js')(app)
 require('./app/routes/commons.routes.js')(app)
+require('./app/routes/serviceSet.routes.js')(app)
 
 app.use((req, res) => {
 	res.status(404).send({ message: "Route is not found" })
